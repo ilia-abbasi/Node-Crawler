@@ -1,0 +1,23 @@
+{
+  "name": "node-crawler",
+  "version": "1.0.0",
+  "description": "Project for using HTTP knowledge - FreeCodeCamp course",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilia-abbasi/Node-Crawler.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ilia-abbasi/Node-Crawler/issues"
+  },
+  "homepage": "https://github.com/ilia-abbasi/Node-Crawler#readme",
+  "devDependencies": {
+    "jest": "^30.0.5"
+  }
+}
