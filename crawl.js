@@ -36,7 +36,7 @@ function isValidURL(string) {
   try {
     new URL(string);
     return true;
-  } catch (e) {
+  } catch (err) {
     return false;
   }
 }
