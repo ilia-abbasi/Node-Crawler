@@ -1,7 +1,7 @@
 const { crawlPage } = require("./crawl.js");
 const argv = process.argv;
 
-function main() {
+async function main() {
   argv.splice(0, 2);
 
   if (argv.length !== 1) {
@@ -13,7 +13,10 @@ function main() {
 
   console.log(`Preparing to crawl ${baseURL} ...`);
 
-  crawlPage(baseURL);
+  const pages = await crawlPage(baseURL, baseURL, {"holder":0});
+  for (const page of Object.entries(pages)) {
+    console.log(page);
+  }
 }
 
 try {
