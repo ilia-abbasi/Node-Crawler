@@ -1,4 +1,4 @@
-const { normalizeURL, getURLsFromHTML } = require("./crawl.js");
+const { normalizeURL, getURLsFromHTML, isValidURL } = require("./crawl.js");
 const { test, expect } = require("@jest/globals");
 
 test("normalizeURL strip protocol", () => {
@@ -99,4 +99,20 @@ test("getURLsFromHTML invalid", () => {
   const expected = [];
   const actual = getURLsFromHTML(inputHTMLBody, inputBaseURL);
   expect(actual).toEqual(expected);
+});
+
+test("isValidURL general test", () => {
+  const inputs = [
+    "https://EXAMPLE.COM/SOMETHING/",
+    "http://kArSaNj.NeT/lOgIn",
+    "https://My.Sanjesh.oRG",
+    "google.com/",
+    "http://wagslane.dev",
+    "bruh",
+  ];
+  const expecteds = [true, true, true, true, true, false];
+  for (let i = 0; i < inputs.length; i++) {
+    const actual = isValidURL(inputs[i]);
+    expect(actual).toEqual(expecteds[i]);
+  }
 });
