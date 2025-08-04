@@ -1,9 +1,7 @@
 const { JSDOM } = require("jsdom");
 
 function normalizeURL(urlString) {
-  if (!urlString.startsWith("http")) {
-    urlString = `http://${urlString}`;
-  }
+  urlString = appendProtocol(urlString);
 
   const urlObj = new URL(urlString);
   let result = `${urlObj.hostname}${urlObj.pathname}`;
@@ -50,9 +48,7 @@ You may have forgotten to include the protocol of the URL.
     return pages;
   }
 
-  if (!currentURL.startsWith("http")) {
-    currentURL = `http://${currentURL}`;
-  }
+  currentURL = appendProtocol(currentURL);
 
   const baseURLObj = new URL(baseURL);
   const currentURLObj = new URL(currentURL);
@@ -111,15 +107,20 @@ function isValidURL(string) {
   if (!string.includes(".")) {
     return false;
   }
-  if (!string.startsWith("http")) {
-    string = `http://${string}`;
-  }
+  string = appendProtocol(string);
   try {
     new URL(string);
     return true;
   } catch (err) {
     return false;
   }
+}
+
+function appendProtocol(string) {
+  if (!string.startsWith("http")) {
+    string = `http://${string}`;
+  }
+  return string;
 }
 
 module.exports = {

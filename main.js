@@ -13,7 +13,7 @@ async function main() {
 
   console.log(`Preparing to crawl ${baseURL} ...`);
 
-  const pages = await crawlPage(baseURL, baseURL, {"holder":0});
+  const pages = await crawlPage(baseURL, baseURL, {});
   for (const page of Object.entries(pages)) {
     console.log(page);
   }
