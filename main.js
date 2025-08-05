@@ -1,3 +1,4 @@
+const { verboseMode, saveLogMode } = require("./config");
 const { crawlPage } = require("./crawl");
 const { printReport } = require("./report");
 const argv = process.argv;
@@ -5,10 +6,7 @@ const argv = process.argv;
 async function main() {
   argv.splice(0, 2);
 
-  if (argv.length !== 1) {
-    console.log(`Exactly 1 argument is expected. You provided ${argv.length}.`);
-    process.exit(1);
-  }
+  handleArgv();
 
   const baseURL = argv[0];
 
@@ -16,6 +14,36 @@ async function main() {
 
   const pages = await crawlPage(baseURL, baseURL, {});
   printReport(pages);
+}
+
+function handleArgv() {
+  if (argv.length === 0) {
+    console.log("No arguments were given. Exitting with code 1.");
+    process.exit(1);
+  }
+
+  if (argv.includes("-v")) {
+    verboseMode = true;
+    argv.splice(argv.indexOf("-v"), 1);
+  }
+  if (argv.includes("--verbose")) {
+    verboseMode = true;
+    argv.splice(argv.indexOf("--verbose"), 1);
+  }
+
+  if (argv.includes("-l")) {
+    saveLogMode = true;
+    argv.splice(argv.indexOf("-l"), 1);
+  }
+  if (argv.includes("--save-log")) {
+    saveLogMode = true;
+    argv.splice(argv.indexOf("--save-log"), 1);
+  }
+
+  if (argv.length === 0) {
+    console.log("No URL was given. Exitting with code 1.");
+    process.exit(1);
+  }
 }
 
 try {
