@@ -1,10 +1,10 @@
-const { verboseMode, logString } = require("./config");
+const config = require("./config");
 
 function log(text, isTextVerbose = false) {
-  if (isTextVerbose && !verboseMode) {
+  if (isTextVerbose && !config.verboseMode) {
     return;
   }
-  logString = `${logString}\n${text}`;
+  config.logString = `${config.logString}\n${text}`;
   console.log(text);
 }
 

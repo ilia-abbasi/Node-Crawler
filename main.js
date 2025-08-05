@@ -1,5 +1,6 @@
-const { verboseMode, saveLogMode } = require("./config");
+const config = require("./config");
 const { crawlPage } = require("./crawl");
+const { log } = require("./logger");
 const { printReport } = require("./report");
 const argv = process.argv;
 
@@ -10,7 +11,7 @@ async function main() {
 
   const baseURL = argv[0];
 
-  console.log(`Preparing to crawl ${baseURL} ...`);
+  log(`Preparing to crawl ${baseURL} ...`);
 
   const pages = await crawlPage(baseURL, baseURL, {});
   printReport(pages);
@@ -22,22 +23,22 @@ function handleArgv() {
     process.exit(1);
   }
 
-  if (argv.includes("-v")) {
-    verboseMode = true;
-    argv.splice(argv.indexOf("-v"), 1);
+  if (argv.includes("v")) {
+    config.verboseMode = true;
+    argv.splice(argv.indexOf("v"), 1);
   }
-  if (argv.includes("--verbose")) {
-    verboseMode = true;
-    argv.splice(argv.indexOf("--verbose"), 1);
+  if (argv.includes("verbose")) {
+    config.verboseMode = true;
+    argv.splice(argv.indexOf("verbose"), 1);
   }
 
-  if (argv.includes("-l")) {
-    saveLogMode = true;
-    argv.splice(argv.indexOf("-l"), 1);
+  if (argv.includes("l")) {
+    config.saveLogMode = true;
+    argv.splice(argv.indexOf("l"), 1);
   }
-  if (argv.includes("--save-log")) {
-    saveLogMode = true;
-    argv.splice(argv.indexOf("--save-log"), 1);
+  if (argv.includes("save-log")) {
+    config.saveLogMode = true;
+    argv.splice(argv.indexOf("save-log"), 1);
   }
 
   if (argv.length === 0) {

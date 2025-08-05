@@ -1,4 +1,5 @@
 const { JSDOM } = require("jsdom");
+const { log } = require("./logger");
 
 function normalizeURL(urlString) {
   urlString = appendProtocol(urlString);
@@ -35,16 +36,18 @@ function getURLsFromHTML(htmlBody, baseURL) {
 }
 
 async function crawlPage(baseURL, currentURL, pages) {
-  console.log(`Actively crawling ${currentURL}`);
-  console.log("Checking URL's validity ...");
+  log(`Actively crawling ${currentURL}`);
+  log("Checking URL's validity ...", true);
 
   if (!isValidURL(currentURL)) {
-    console.error(
+    log(
       `
 Invalid URL. Check if the link you provided is formatted correctly as a valid URL.
 You may have forgotten to include the protocol of the URL.
-      `
+      `,
+      true
     );
+    log("Failed");
     return pages;
   }
 
@@ -53,51 +56,60 @@ You may have forgotten to include the protocol of the URL.
   const baseURLObj = new URL(baseURL);
   const currentURLObj = new URL(currentURL);
   if (baseURLObj.hostname !== currentURLObj.hostname) {
-    console.log(
-      "URL is not on the same host as the base URL. Stopping crawl on this page."
+    log(
+      "URL is not on the same host as the base URL. Stopping crawl on this page.",
+      true
     );
+    log("Skipped");
     return pages;
   }
 
   const normalizedCurrentURL = normalizeURL(currentURL);
   if (pages[normalizedCurrentURL] > 0) {
-    console.log("URL has been already crawled. Moving on.");
+    log("URL has been already crawled. Moving on.", true);
+    log("Skipped");
     pages[normalizedCurrentURL]++;
     return pages;
   }
 
   pages[normalizedCurrentURL] = 1;
 
-  console.log(`Sending GET request to ${currentURL} ...`);
+  log(`Sending GET request to ${currentURL} ...`, true);
 
   try {
     const resp = await fetch(currentURL);
     if (resp.status > 399) {
-      console.log(
-        `Error: Status code ${resp.status} was recieved while fetching ${currentURL}`
+      log(
+        `Error: Status code ${resp.status} was recieved while fetching ${currentURL}`,
+        true
       );
+      log("Failed");
       return pages;
     }
 
     const contentType = resp.headers.get("content-type");
     if (!contentType.includes("text/html")) {
-      console.log(
-        `Error: Response was ${contentType} instead of HTML while fetching ${currentURL}`
+      log(
+        `Error: Response was ${contentType} instead of HTML while fetching ${currentURL}`,
+        true
       );
+      log("Failed");
       return pages;
     }
 
     const htmlBody = await resp.text();
     const nextURLs = getURLsFromHTML(htmlBody, currentURL);
 
-    console.log(`Crawling successful for ${currentURL}`);
+    log(`Crawling successful for ${currentURL}`, true);
+    log("Success");
 
     for (const nextURL of nextURLs) {
       pages = await crawlPage(baseURL, nextURL, pages);
     }
   } catch (err) {
-    console.log(`Something went wrong while fetching ${currentURL} :`);
-    console.log(err);
+    log(`Something went wrong while fetching ${currentURL} :`, true);
+    log(err, true);
+    log("Failed");
   }
 
   return pages;

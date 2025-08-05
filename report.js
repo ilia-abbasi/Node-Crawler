@@ -1,18 +1,20 @@
+const { log } = require("./logger");
+
 function printReport(pages) {
-  console.log("--------------");
-  console.log("|   REPORT   |");
-  console.log("--------------");
-  console.log("|");
+  log("--------------");
+  log("|   REPORT   |");
+  log("--------------");
+  log("|");
   const sortedPages = sortPages(pages);
   for (const sortedPage of sortedPages) {
     const url = sortedPage[0];
     const hits = sortedPage[1];
-    console.log(`|- Found ${hits} links to ${url}`);
+    log(`|- Found ${hits} links to ${url}`);
   }
-  console.log("|");
-  console.log("--------------");
-  console.log("| END REPORT |");
-  console.log("--------------");
+  log("|");
+  log("--------------");
+  log("| END REPORT |");
+  log("--------------");
 }
 
 function sortPages(pages) {
