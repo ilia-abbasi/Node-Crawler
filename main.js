@@ -1,6 +1,6 @@
 const config = require("./config");
 const { crawlPage } = require("./crawl");
-const { log } = require("./logger");
+const { log, saveLog } = require("./logger");
 const { printReport } = require("./report");
 const argv = process.argv;
 
@@ -15,6 +15,10 @@ async function main() {
 
   const pages = await crawlPage(baseURL, baseURL, {});
   printReport(pages);
+
+  if (config.saveLogMode) {
+    saveLog();
+  }
 }
 
 function handleArgv() {
