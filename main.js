@@ -1,5 +1,5 @@
-const { crawlPage } = require("./crawl.js");
-const { printReport } = require("./report.js");
+const { crawlPage } = require("./crawl");
+const { printReport } = require("./report");
 const argv = process.argv;
 
 async function main() {
