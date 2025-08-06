@@ -38,6 +38,11 @@ function handleArgv() {
     process.exit(1);
   }
 
+  if (argv.includes("h") || argv.includes("help")) {
+    showHelp();
+    process.exit(0);
+  }
+
   if (argv.includes("v")) {
     config.verboseMode = true;
     argv.splice(argv.indexOf("v"), 1);
@@ -61,6 +66,18 @@ function handleArgv() {
     saveLog();
     process.exit(1);
   }
+}
+
+function showHelp() {
+  console.log(`
+Usage: npm start [target-url] [v] [l]
+
+Options:
+    h  OR  help           Shows this section. Explains different options.
+    v  OR  verbose        Logs more messages to the console, including the
+                          reason for skipping or failing to crawl a webpage.
+    l  OR  save-log       Logs will be saved after the execution of program.
+    `);
 }
 
 try {
