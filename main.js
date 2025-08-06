@@ -11,19 +11,30 @@ async function main() {
 
   const baseURL = argv[0];
 
+  try {
+    const baseURLObj = new URL(baseURL);
+    config.protocol = baseURLObj.protocol;
+  } catch (err) {
+    log(`
+Invalid URL. Check if the link you provided is formatted correctly as a valid URL.
+You may have forgotten to include the protocol of the URL.
+      `);
+    saveLog();
+    process.exit(1);
+  }
+
   log(`Preparing to crawl ${baseURL} ...`);
 
   const pages = await crawlPage(baseURL, baseURL, {});
   printReport(pages);
 
-  if (config.saveLogMode) {
-    saveLog();
-  }
+  saveLog();
 }
 
 function handleArgv() {
   if (argv.length === 0) {
     console.log("No arguments were given. Exitting with code 1.");
+    saveLog();
     process.exit(1);
   }
 
@@ -47,6 +58,7 @@ function handleArgv() {
 
   if (argv.length === 0) {
     console.log("No URL was given. Exitting with code 1.");
+    saveLog();
     process.exit(1);
   }
 }

@@ -12,7 +12,11 @@ function log(text, isTextVerbose = false) {
   console.log(text);
 }
 
-function saveLog() {
+function saveLog(isForced = false) {
+  if (!config.saveLogMode && !isForced) {
+    return;
+  }
+
   // Making logs folder if it does not exist
   try {
     if (!fs.existsSync(folderName)) {

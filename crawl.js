@@ -1,5 +1,6 @@
 const { JSDOM } = require("jsdom");
 const { log } = require("./logger");
+const config = require("./config");
 
 function normalizeURL(urlString) {
   urlString = appendProtocol(urlString);
@@ -40,13 +41,7 @@ async function crawlPage(baseURL, currentURL, pages) {
   log("Checking URL's validity ...", true);
 
   if (!isValidURL(currentURL)) {
-    log(
-      `
-Invalid URL. Check if the link you provided is formatted correctly as a valid URL.
-You may have forgotten to include the protocol of the URL.
-      `,
-      true
-    );
+    log("Invalid URl. Stopping crawl on this page.");
     log("Failed");
     return pages;
   }
@@ -56,10 +51,7 @@ You may have forgotten to include the protocol of the URL.
   const baseURLObj = new URL(baseURL);
   const currentURLObj = new URL(currentURL);
   if (baseURLObj.hostname !== currentURLObj.hostname) {
-    log(
-      "URL is not on the same host as the base URL. Stopping crawl on this page.",
-      true
-    );
+    log("URL is not on the same host as the base URL. Moving on.", true);
     log("Skipped");
     return pages;
   }
@@ -130,7 +122,7 @@ function isValidURL(string) {
 
 function appendProtocol(string) {
   if (!string.startsWith("http")) {
-    string = `http://${string}`;
+    string = `${config.protocol}//${string}`;
   }
   return string;
 }
