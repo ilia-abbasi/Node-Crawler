@@ -26,17 +26,17 @@ You must have Node.js, NPM and NVM already installed.
 
 - Run source code with:
    ```sh
-   npm start target-url
+   npm run start target-url
    ```
 
 - Run test suites with (uses jest):
    ```sh
-   npm test
+   npm run test
    ```
 
 - Use this command to get a list of options:
   ```sh
-  npm start h
+  npm run start h
   ```
 
 ## Dependencies
