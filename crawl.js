@@ -90,7 +90,7 @@ async function crawlPage(baseURL, currentURL, pages) {
     }
 
     const htmlBody = await resp.text();
-    const nextURLs = getURLsFromHTML(htmlBody, currentURL);
+    const nextURLs = getURLsFromHTML(htmlBody, baseURL);
 
     log(`Crawling successful for ${currentURL}`, true);
     log("Success");

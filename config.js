@@ -1,6 +1,6 @@
 module.exports = {
   verboseMode: false,
   saveLogMode: false,
-  protocol: "",
+  protocol: "http:",
   logString: "",
 };

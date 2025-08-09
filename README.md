@@ -7,11 +7,7 @@ Node-Crawler recursively crawls all the webpages within that website and
 skips any duplicate or external links. Then it will print out a sorted list
 containing the links and how many times they were used in the website.
 
-
----
-
-
-### Installation
+## Installation
 
 1. Clone the repository:
    ```sh
@@ -21,21 +17,29 @@ containing the links and how many times they were used in the website.
    ```sh
    npm install
    ```
-3. Run with:
+
+You must have Node.js, NPM and NVM already installed.
+
+## Running
+
+### Source Code
+
+- Run source code with:
    ```sh
    npm start target-url
    ```
 
-Use this command to get a list of options:
+- Run test suites with (uses jest):
+   ```sh
+   npm test
+   ```
+
+- Use this command to get a list of options:
   ```sh
   npm start h
   ```
 
-
----
-
-
-### Dependencies
+## Dependencies
 
 - jest
 - jsdom
