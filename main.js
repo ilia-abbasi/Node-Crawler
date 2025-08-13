@@ -25,8 +25,8 @@ You may have forgotten to include the protocol of the URL.
 
   log(`Preparing to crawl ${baseURL} ...`);
 
-  const pages = await crawlPage(baseURL, baseURL, {});
-  printReport(pages);
+  await crawlPage(baseURL, baseURL);
+  printReport();
 
   saveLog();
 }

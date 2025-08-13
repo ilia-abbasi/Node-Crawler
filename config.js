@@ -3,4 +3,6 @@ module.exports = {
   saveLogMode: false,
   protocol: "http:",
   logString: "",
+  pages: {},
+  externalPages: {},
 };

@@ -1,11 +1,11 @@
 const { log } = require("./logger");
 
-function printReport(pages) {
+function printReport() {
   log("--------------");
   log("|   REPORT   |");
   log("--------------");
   log("|");
-  const sortedPages = sortPages(pages);
+  const sortedPages = sortPagesObj(config.pages);
   for (const sortedPage of sortedPages) {
     const url = sortedPage[0];
     const hits = sortedPage[1];
@@ -17,8 +17,8 @@ function printReport(pages) {
   log("--------------");
 }
 
-function sortPages(pages) {
-  const pagesArr = Object.entries(pages);
+function sortPagesObj(pagesObj) {
+  const pagesArr = Object.entries(pagesObj);
   pagesArr.sort((a, b) => {
     aHits = a[1];
     bHits = b[1];
@@ -28,6 +28,6 @@ function sortPages(pages) {
 }
 
 module.exports = {
-  sortPages,
+  sortPagesObj,
   printReport,
 };

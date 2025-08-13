@@ -36,14 +36,14 @@ function getURLsFromHTML(htmlBody, baseURL) {
   return urls;
 }
 
-async function crawlPage(baseURL, currentURL, pages) {
+async function crawlPage(baseURL, currentURL) {
   log(`Actively crawling ${currentURL}`);
   log("Checking URL's validity ...", true);
 
   if (!isValidURL(currentURL)) {
     log("Invalid URl. Stopping crawl on this page.");
     log("Failed");
-    return pages;
+    return;
   }
 
   currentURL = appendProtocol(currentURL);
@@ -53,18 +53,18 @@ async function crawlPage(baseURL, currentURL, pages) {
   if (baseURLObj.hostname !== currentURLObj.hostname) {
     log("URL is not on the same host as the base URL. Moving on.", true);
     log("Skipped");
-    return pages;
+    return;
   }
 
   const normalizedCurrentURL = normalizeURL(currentURL);
-  if (pages[normalizedCurrentURL] > 0) {
+  if (config.pages[normalizedCurrentURL] > 0) {
     log("URL has been already crawled. Moving on.", true);
     log("Skipped");
-    pages[normalizedCurrentURL]++;
-    return pages;
+    config.pages[normalizedCurrentURL]++;
+    return;
   }
 
-  pages[normalizedCurrentURL] = 1;
+  config.pages[normalizedCurrentURL] = 1;
 
   log(`Sending GET request to ${currentURL} ...`, true);
 
@@ -76,7 +76,7 @@ async function crawlPage(baseURL, currentURL, pages) {
         true
       );
       log("Failed");
-      return pages;
+      return;
     }
 
     const contentType = resp.headers.get("content-type");
@@ -86,7 +86,7 @@ async function crawlPage(baseURL, currentURL, pages) {
         true
       );
       log("Failed");
-      return pages;
+      return;
     }
 
     const htmlBody = await resp.text();
@@ -96,15 +96,13 @@ async function crawlPage(baseURL, currentURL, pages) {
     log("Success");
 
     for (const nextURL of nextURLs) {
-      pages = await crawlPage(baseURL, nextURL, pages);
+      await crawlPage(baseURL, nextURL);
     }
   } catch (err) {
     log(`Something went wrong while fetching ${currentURL} :`, true);
     log(err, true);
     log("Failed");
   }
-
-  return pages;
 }
 
 function isValidURL(string) {

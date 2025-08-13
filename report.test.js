@@ -1,7 +1,7 @@
-const { sortPages } = require("./report");
+const { sortPagesObj } = require("./report");
 const { test, expect } = require("@jest/globals");
 
-test("sortPages easy", () => {
+test("sortPagesObj easy", () => {
   const input = {
     "https://example.com": 1,
     "https://example.com/path": 3,
@@ -10,11 +10,11 @@ test("sortPages easy", () => {
     ["https://example.com/path", 3],
     ["https://example.com", 1],
   ];
-  const actual = sortPages(input);
+  const actual = sortPagesObj(input);
   expect(actual).toEqual(expected);
 });
 
-test("sortPages complex", () => {
+test("sortPagesObj complex", () => {
   const input = {
     "https://example.com": 1,
     "https://example.com/path": 7,
@@ -35,6 +35,6 @@ test("sortPages complex", () => {
     ["https://example.com/path/to", 2],
     ["https://example.com", 1],
   ];
-  const actual = sortPages(input);
+  const actual = sortPagesObj(input);
   expect(actual).toEqual(expected);
 });
