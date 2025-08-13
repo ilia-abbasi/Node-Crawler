@@ -1,16 +1,32 @@
 const { log } = require("./logger");
+const config = require("./config");
 
 function printReport() {
   log("--------------");
   log("|   REPORT   |");
   log("--------------");
   log("|");
+
   const sortedPages = sortPagesObj(config.pages);
   for (const sortedPage of sortedPages) {
     const url = sortedPage[0];
     const hits = sortedPage[1];
     log(`|- Found ${hits} links to ${url}`);
   }
+
+  log("|");
+  log("--------------");
+  log("|  EXTERNAL  |");
+  log("--------------");
+  log("|");
+
+  const sortedExternalPages = sortPagesObj(config.externalPages);
+  for (const sortedExternalPage of sortedExternalPages) {
+    const url = sortedExternalPage[0];
+    const hits = sortedExternalPage[1];
+    log(`|- Found ${hits} links to ${url}`);
+  }
+
   log("|");
   log("--------------");
   log("| END REPORT |");

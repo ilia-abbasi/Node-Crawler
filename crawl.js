@@ -50,13 +50,18 @@ async function crawlPage(baseURL, currentURL) {
 
   const baseURLObj = new URL(baseURL);
   const currentURLObj = new URL(currentURL);
+  const normalizedCurrentURL = normalizeURL(currentURL);
+
   if (baseURLObj.hostname !== currentURLObj.hostname) {
+    if (config.externalPages[normalizedCurrentURL] === undefined) {
+      config.externalPages[normalizedCurrentURL] = 0;
+    }
+    config.externalPages[normalizedCurrentURL]++;
     log("URL is not on the same host as the base URL. Moving on.", true);
     log("Skipped");
     return;
   }
 
-  const normalizedCurrentURL = normalizeURL(currentURL);
   if (config.pages[normalizedCurrentURL] > 0) {
     log("URL has been already crawled. Moving on.", true);
     log("Skipped");
