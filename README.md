@@ -12,13 +12,14 @@ containing the links and how many times they were used in the website.
 1. Clone the repository:
    ```sh
    git clone https://github.com/ilia-abbasi/Node-Crawler.git
+   cd Node-Crawler
    ```
 2. Install dependencies:
    ```sh
    npm install
    ```
 
-You must have Node.js, NPM and NVM already installed.
+You must have **Node.js**, **NPM** and **NVM** already installed.
 
 ## Running
 
@@ -41,7 +42,7 @@ You must have Node.js, NPM and NVM already installed.
 
 ## Dependencies
 
-- jest
+- jest (dev dependency)
 - jsdom
 
 The source code is formatted with [Prettier](https://prettier.io/).
