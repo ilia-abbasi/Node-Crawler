@@ -52,9 +52,9 @@ function handleArgv() {
     argv.splice(argv.indexOf("verbose"), 1);
   }
 
-  if (argv.includes("l")) {
+  if (argv.includes("s")) {
     config.saveLogMode = true;
-    argv.splice(argv.indexOf("l"), 1);
+    argv.splice(argv.indexOf("s"), 1);
   }
   if (argv.includes("save-log")) {
     config.saveLogMode = true;
@@ -70,7 +70,7 @@ function handleArgv() {
 
 function showHelp() {
   console.log(`
-Usage: npm start [target-url] [v] [l]
+Usage: npm start [target-url] [options]
 
 Options:
     h  OR  help           Shows this section. Explains different options.
