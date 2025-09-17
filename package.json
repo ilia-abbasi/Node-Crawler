@@ -2,9 +2,9 @@
   "name": "node-crawler",
   "version": "1.0.0",
   "description": "Project for using HTTP knowledge - FreeCodeCamp course",
-  "main": "main.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node main.js",
+    "start": "node index.js",
     "test": "jest"
   },
   "repository": {

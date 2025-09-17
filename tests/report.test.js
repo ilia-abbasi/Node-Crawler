@@ -1,4 +1,4 @@
-const { sortPagesObj } = require("./report");
+const { sortPagesObj } = require("../utils/report");
 const { test, expect } = require("@jest/globals");
 
 test("sortPagesObj easy", () => {

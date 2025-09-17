@@ -1,7 +1,7 @@
-const config = require("./config");
-const { crawlPage } = require("./crawl");
-const { log, saveLog } = require("./logger");
-const { printReport } = require("./report");
+const config = require("./utils/config");
+const { crawlPage } = require("./utils/crawl");
+const { log, saveLog } = require("./utils/logger");
+const { printReport } = require("./utils/report");
 const argv = process.argv;
 
 async function main() {
