@@ -1,1 +1,1 @@
-nexe --input main.js --output "/exe" --name "Node Crawler" --build
+nexe --input index.js --output "/exe" --name "Node Crawler" --build
